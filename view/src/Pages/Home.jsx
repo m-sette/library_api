@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import BookItem from '../components/bookitem/BookItem.jsx';
 
 const Home = () => {
     const [books, setBooks] = useState([]);
@@ -12,15 +13,18 @@ const Home = () => {
         getBooks();
     });
 
+    const displayBooks = (books) => {
+        return (
+            books &&
+            books.map((book) => {
+                return <BookItem key={book.id} book={book} />;
+            })
+        );
+    };
     return (
         <div>
             <h1>Home</h1>
-            <ul>
-                {books &&
-                    books.map((book) => {
-                        return <li key={book._id}>{book.title}</li>;
-                    })}
-            </ul>
+            <ul>{displayBooks(books)}</ul>
         </div>
     );
 };
