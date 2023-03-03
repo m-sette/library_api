@@ -1,5 +1,25 @@
+$text-color:rgb(240, 232, 232); 
+
 .header {
     background: rgb(77, 77, 233);
-    color: rgb(240, 232, 232);
+    color: $text-color; 
     height: 6rem;
+
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .nav {
+        display: flex;
+        gap: 1rem;
+        .nav-item {
+            color: $text-color;
+            font-size: 1.3rem;
+            text-decoration: none;
+        }
+        .active {
+            text-decoration: underline;
+        }
+    }
 }

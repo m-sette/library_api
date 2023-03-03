@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import './App.scss';
 import { Routes, Route } from 'react-router-dom';
-import Header from './components/Header.jsx';
 import Home from './Pages/Home.jsx';
 import Loan from './Pages/Loan.jsx';
+import Layout from './Pages/Layout.jsx';
 
 function App() {
     return (
         <div className="App">
-            <Header />
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/loan" element={<Loan />} />
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<Home />} />
+                    <Route path="/loan" element={<Loan />} />
+                </Route>
             </Routes>
         </div>
     );
