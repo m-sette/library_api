@@ -4,6 +4,8 @@ import cors from 'cors';
 import userRouter from './router/userRouter.js';
 import bookRouter from './router/bookRouter.js';
 import bookLoanRouter from './router/bookLoanRouter.js';
+import {error} from "./controller/errorController.js";
+import {notFound} from "./controller/unknownController.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -21,8 +23,7 @@ app.use('/api/books', bookRouter);
 app.use('/api/users', userRouter);
 app.use('/api/bookLoan', bookLoanRouter);
 
-//TODO
-// Error handler
-// unkown endpoit
+app.use(notFound)
+app.use(error)
 
 app.listen(PORT, () => console.log('Serving on port:', PORT));
