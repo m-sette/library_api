@@ -1,22 +1,24 @@
 import './App.scss';
-import {Route, Routes} from 'react-router-dom';
+import { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Home from './Pages/Home.jsx';
 import Loan from './Pages/Loan.jsx';
 import Layout from './Pages/Layout.jsx';
-import {useState} from "react";
+import { BasketContext } from './context/BasketContext.js';
 
 function App() {
-
     const [basket, setBasket] = useState([]);
     return (
-        <div className="App">
-            <Routes>
-                <Route path="/" element={<Layout/>}>
-                    <Route index element={<Home setBasket={setBasket} basket={basket}/>}/>
-                    <Route path="/loan" element={<Loan basket={basket} setBasket={setBasket}/>}/>
-                </Route>
-            </Routes>
-        </div>
+        <BasketContext.Provider value={{ basket, setBasket }}>
+            <div className="App">
+                <Routes>
+                    <Route path="/" element={<Layout />}>
+                        <Route index element={<Home />} />
+                        <Route path="/loan" element={<Loan />} />
+                    </Route>
+                </Routes>
+            </div>
+        </BasketContext.Provider>
     );
 }
 

@@ -1,15 +1,21 @@
-import {useEffect, useState} from 'react';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import './Home.scss';
 import BookItem from '../components/bookitem/BookItem.jsx';
+import { BasketContext } from '../context/BasketContext.js';
 
-const Home = ({setBasket, basket}) => {
+const Home = () => {
     const [books, setBooks] = useState([]);
+    const { basket, setBasket } = useContext(BasketContext);
     const baseUrl = 'http://localhost:4000';
     useEffect(() => {
         const getBooks = async () => {
-            const {data: books} = await axios(`${baseUrl}/api/books`);
-            setBooks(books);
+            try {
+                const { data: books } = await axios(`${baseUrl}/api/books`);
+                setBooks(books);
+            } catch (error) {
+                console.error(error.message);
+            }
         };
         getBooks();
     }, []);
@@ -25,6 +31,7 @@ const Home = ({setBasket, basket}) => {
     return (
         <div className="home-container">
             <h1>Home</h1>
+            <h3>Basket: {basket.length}</h3>
             <ul className="book-items">
                 {books &&
                     books.map((book) => (
